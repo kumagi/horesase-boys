@@ -1,0 +1,22 @@
+html
+  head
+    link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"
+    link rel="stylesheet" type="text/css" href="/static/css/index.css"
+body
+  div.navbar.navbar-inverse
+    header
+      h2 地獄のミサワインデクサー
+  div#main role="main"
+    ul#tiles
+      - for misawa in @data do
+        li.thumbnail.misawa id="#{misawa['id']}"
+          center
+            h3 #{misawa['title']}
+          img src="#{misawa['image']}"
+            h4
+              == misawa["text"].gsub(/\n/,"<br>")
+  script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"
+  script type="text/javascript" src="/static/js/jquery.wookmark.min.js"
+  script type="text/javascript" src="/static/js/bootstrap.js"
+  script type="text/javascript" src="/static/js/index.js"
+
