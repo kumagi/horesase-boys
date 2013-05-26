@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
+
 require "pathname"
+require 'pp'
 
 task :default => :build
 
@@ -58,8 +61,6 @@ task :fetch do
 
     yaml = YAML.dump(meigen.stringify_keys)
     File.write(yaml_path, yaml, :encoding => Encoding::UTF_8)
-
-    sleep 2
   end
 end
 

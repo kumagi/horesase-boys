@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
 require "open-uri"
-
 require "rubygems"
 require "nokogiri"
 
 module Jigokuno
   URL        = "http://jigokuno.com/"
-  NEXT_XPATH = "//div[@id='page_area']/div[@class='page_navi']/a[contains(text(), '>>')]"
+  NEXT_XPATH = "//div[@id='pager']/p['fullpager']/span[@class='pager_next']/a[contains(text(), '>>')]"
 
   class Misawa
     include Enumerable
@@ -25,8 +24,8 @@ module Jigokuno
       return nil if next_link.nil?
 
       @current  = next_link["href"]
-      @document = Nokogiri::HTML(open(@current))
-
+      @document = Nokogiri::HTML(open(@current).read, @current)
+      sleep 2
       self
     end
 
@@ -55,7 +54,7 @@ module Jigokuno
         image     = entry.at(".//img[@class='pict']").attributes["src"].to_s
         character = entry.at("center/ul/li[2]/a").text
         cid       = entry.at("center/ul/li[2]/a").attributes["href"].to_s.slice(/cid=(.+)/,1).to_i
-        eid       = entry.at("center/ul/li[3]/a").attributes["href"].to_s.slice(/eid=(.+)/,1).to_i
+        eid       = entry.at("h2/a").attributes["href"].to_s.slice(/eid=(.+)/,1).to_i
 
         yield Hash[{
           :id        => id,
