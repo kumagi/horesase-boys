@@ -1,23 +1,15 @@
-$(document).ready(new function() {
-    console.log($('ul.tiles li.misawa'));
-    var option = {
-        offset: 5,
-        container: $('div#main'),
-        autoResize: true
+$(document).ready(function() {
+    document.search.text.focus();
+    function copy(text) {
+        var clip = $('#clipbox');
+        clip.val(text);
+        clip.select();
+        document.execCommand('copy');
     };
-    var handler = $('ul#tiles li.misawa');
-    handler.wookmark(option);
+    console.log($("misawa"))
 
-    var selected = null
-
-    handler.click(function(){
-        if (selected != null) {
-            selected.css('height', selected.height() - 80 + 'px');
-        }
-        // Randomize the height of the clicked item.
-        var height = $(this).height();
-        $(this).css('height', $(this).height() + 80 + 'px');
-        selected = $(this);
-        handler.wookmark();
+    $("div#main img.misawa").click(function(event) {
+        $("input#clip").val(this.src)
+        clip.select();
     });
 });

@@ -5,18 +5,20 @@ html
 body
   div.navbar.navbar-inverse
     header
-      h2 地獄のミサワインデクサー
+      h2
+        |地獄のミサワ検索
+        - unless @word.nil?
+          |  searched for "#{@word}"
   div#main role="main"
-    ul#tiles
-      - for misawa in @data do
-        li.thumbnail.misawa id="#{misawa['id']}"
-          center
-            h3 #{misawa['title']}
-          img src="#{misawa['image']}"
-            h4
-              == misawa["text"].gsub(/\n/,"<br>")
+    p
+      form.navbar-search.pull-left.search method="POST" action="/search/" name="search"
+        input.search-query type="text" placeholder="Search" name="text" value="#{@word}"
+    br
+    br
+    - for misawa in @data do
+      img src="#{misawa['image']}" id="#{misawa['id']}" class="misawa"
+  input#clip type="text" value="" readonly="readonly"
   script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"
-  script type="text/javascript" src="/static/js/jquery.wookmark.min.js"
+  script type="text/javascript" src="/static/js/jquery.zclip.min.js"
   script type="text/javascript" src="/static/js/bootstrap.js"
   script type="text/javascript" src="/static/js/index.js"
-
